@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expense Tracker</title>
+<style>
+    
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.input-group input[type="text"],
+.input-group input[type="number"],
+.input-group input[type="date"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.button-primary {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-primary:hover {
+    background-color: #0056b3;
+}
+
+#expenses {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.expense {
+    flex: 0 0 calc(50% - 15px);
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+    border-radius: 5px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    margin-bottom: 30px;
+    padding: 20px;
+}
+
+.expense p {
+    margin: 5px 0;
+    color: #333;
+}
+
+.expense button {
+    padding: 8px 15px;
+    background-color: #dc3545;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.expense button:hover {
+    background-color: #c82333;
+}
+
+.total-amount {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 20px;
+    color: #333;
+}
+
+.filter-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.filter-group label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.filter-group input[type="number"],
+.filter-group input[type="date"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.filter-group button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter-group button:hover {
+    background-color: #0056b3;
+}
+
+.sort-group {
+    margin-bottom: 20px;
+}
+
+.sort-group button {
+    padding: 10px 20px;
+    background-color: #ffc107;
+    border: none;
+    border-radius: 5px;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sort-group button:hover {
+    background-color: #e0a800;
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Expense Tracker</h1>
+
+    <div class="input-group">
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" placeholder="Amount">
+    </div>
+    <div class="input-group">
+        <label for="date">Date:</label>
+        <input type="date" id="date">
+    </div>
+    <div class="input-group">
+        <label for="description">Description:</label>
+        <input type="text" id="description" placeholder="Description">
+    </div>
+    <button class="button-primary" onclick="addExpense()">Add Expense</button>
+
+    <div id="expenses"></div>
+    <div id="totalAmount" class="total-amount">Total Amount: 0.00</div>
+</div>
+
+<script>
+    let expenses = [];
+
+    if (localStorage.getItem('expenses')) {
+        expenses = JSON.parse(localStorage.getItem('expenses'));
+        renderExpenses();
+    }
+
+    function renderExpenses() {
+        const expensesDiv = document.getElementById('expenses');
+        expensesDiv.innerHTML = '';
+
+        let totalAmount = 0;
+
+        expenses.forEach((expense, index) => {
+            const expenseDiv = document.createElement('div');
+            expenseDiv.classList.add('expense');
+            expenseDiv.innerHTML = `
+                <p>Amount: ${expense.amount}, Date: ${expense.date}, Description: ${expense.description}</p>
+                <button onclick="editExpense(${index})">Edit</button>
+                <button onclick="deleteExpense(${index})">Delete</button>
+            `;
+            expensesDiv.appendChild(expenseDiv);
+
+            totalAmount += parseFloat(expense.amount);
+        });
+
+        document.getElementById('totalAmount').textContent = 'Total Amount: $' + totalAmount.toFixed(2);
+    }
+
+    function addExpense() {
+        const amount = parseFloat(document.getElementById('amount').value);
+        const date = document.getElementById('date').value;
+        const description = document.getElementById('description').value;
+
+        if (isNaN(amount) || amount <= 0 || !date || !description) {
+            alert('Please enter valid amount, date, and description.');
+            return;
+        }
+
+        expenses.push({ amount, date, description });
+        saveExpenses();
+        renderExpenses();
+    }
+
+    function editExpense(index) {
+        const newAmount = parseFloat(prompt('Enter new amount:'));
+        const newDate = prompt('Enter new date:');
+        const newDescription = prompt('Enter new description:');
+
+        if (isNaN(newAmount) || newAmount <= 0 || !newDate || !newDescription) {
+            alert('Please enter valid amount, date, and description.');
+            return;
+        }
+
+        expenses[index].amount = newAmount;
+        expenses[index].date = newDate;
+        expenses[index].description = newDescription;
+        saveExpenses();
+        renderExpenses();
+    }
+
+    function deleteExpense(index) {
+        expenses.splice(index, 1);
+        saveExpenses();
+        renderExpenses();
+    }
+
+    function saveExpenses() {
+        localStorage.setItem('expenses', JSON.stringify(expenses));
+    }
+</script>
+</body>
+</html>
