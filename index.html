@@ -84,7 +84,22 @@
         margin-right: 10px;
         font-size: 16px;
     }
-
+    .sort-group{
+        gap: 1rem;
+        display:flex;
+        
+    }
+    .sort-group button{
+        padding: 10px 20px;
+        background-color: #ffc107;
+        border: none;
+        border-radius: 5px;
+        color: #333;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-size: 16px;
+        font-weight: bold;
+    }
     .filter-sort-group button {
         padding: 10px 20px;
         background-color: #ffc107;
@@ -169,10 +184,10 @@
             <input type="date" id="endDate">
             <button onclick="applyFilters()">Apply Filters</button>
         </div>
-        <div class="sort-group">
-            <button onclick="sortExpenses('amount')">Sort by Amount</button>
-            <button onclick="sortExpenses('date')">Sort by Date</button>
-        </div>
+    </div>
+    <div class="sort-group">
+        <button onclick="sortExpenses('amount')">Sort by Amount</button>
+        <button onclick="sortExpenses('date')">Sort by Date</button>
     </div>
     <div class="expense-list" id="expenseList"></div>
     <div id="totalExpense"></div>
