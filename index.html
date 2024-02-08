@@ -5,256 +5,271 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Expense Tracker</title>
 <style>
-    
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f5f5f5;
-}
+    /* CSS styles (You can add your own styles here) */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f3f4f6;
+    }
 
-.container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
-    backdrop-filter: blur(10px); /* Apply blur effect */
-    border-radius: 10px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* Soft shadow */
-}
+    .container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-h1 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-}
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+        font-weight: bold;
+    }
 
-.input-group {
-    margin-bottom: 20px;
-}
+    .input-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
 
-.input-group label {
-    display: block;
-    margin-bottom: 5px;
-    color: #555;
-}
+    .input-group label {
+        margin-right: 10px;
+        color: #555;
+        font-size: 16px;
+        font-weight: bold;
+    }
 
-.input-group input[type="text"],
-.input-group input[type="number"],
-.input-group input[type="date"] {
-    width: calc(100% - 20px);
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-}
+    .input-group input[type="number"],
+    .input-group input[type="date"],
+    .input-group input[type="text"] {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-right: 10px;
+        font-size: 16px;
+        flex: 1;
+    }
 
-.button-primary {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+    .input-group button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-size: 16px;
+        font-weight: bold;
+    }
 
-.button-primary:hover {
-    background-color: #0056b3;
-}
+    .input-group button:hover {
+        background-color: #0056b3;
+    }
 
-#expenses {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 20px;
-}
+    .filter-sort-group {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
 
-.expense {
-    flex: 0 0 calc(50% - 15px);
-    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
-    backdrop-filter: blur(10px); /* Apply blur effect */
-    border-radius: 5px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* Soft shadow */
-    margin-bottom: 30px;
-    padding: 20px;
-}
+    .filter-group input[type="number"],
+    .filter-group input[type="date"] {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-right: 10px;
+        font-size: 16px;
+    }
 
-.expense p {
-    margin: 5px 0;
-    color: #333;
-}
+    .filter-sort-group button {
+        padding: 10px 20px;
+        background-color: #ffc107;
+        border: none;
+        border-radius: 5px;
+        color: #333;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-size: 16px;
+        font-weight: bold;
+    }
 
-.expense button {
-    padding: 8px 15px;
-    background-color: #dc3545;
-    border: none;
-    border-radius: 5px;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 10px;
-}
+    .filter-sort-group button:hover {
+        background-color: #e0a800;
+    }
 
-.expense button:hover {
-    background-color: #c82333;
-}
+    .expense-list {
+        margin-top: 20px;
+    }
 
-.total-amount {
-    margin-top: 20px;
-    text-align: center;
-    font-size: 20px;
-    color: #333;
-}
+    .expense {
+        padding: 15px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
 
-.filter-group {
-    margin-bottom: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-}
+    .expense p {
+        margin: 5px 0;
+        color: #333;
+        font-size: 16px;
+    }
 
-.filter-group label {
-    margin-right: 10px;
-    font-weight: bold;
-}
+    .expense button {
+        padding: 8px 15px;
+        background-color: #dc3545;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-left: 10px;
+        font-size: 14px;
+        font-weight: bold;
+    }
 
-.filter-group input[type="number"],
-.filter-group input[type="date"] {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 10px;
-    font-size: 16px;
-}
+    .expense button:hover {
+        background-color: #c82333;
+    }
 
-.filter-group button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.filter-group button:hover {
-    background-color: #0056b3;
-}
-
-.sort-group {
-    margin-bottom: 20px;
-}
-
-.sort-group button {
-    padding: 10px 20px;
-    background-color: #ffc107;
-    border: none;
-    border-radius: 5px;
-    color: #333;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.sort-group button:hover {
-    background-color: #e0a800;
-}
-
+    #totalExpense {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 18px;
+        color: #555;
+        font-weight: bold;
+    }
 </style>
 </head>
 <body>
 <div class="container">
     <h1>Expense Tracker</h1>
-
     <div class="input-group">
         <label for="amount">Amount:</label>
-        <input type="number" id="amount" placeholder="Amount">
-    </div>
-    <div class="input-group">
+        <input type="number" id="amount" step="0.01">
         <label for="date">Date:</label>
         <input type="date" id="date">
-    </div>
-    <div class="input-group">
         <label for="description">Description:</label>
-        <input type="text" id="description" placeholder="Description">
+        <input type="text" id="description">
+        <button onclick="addExpense()">Add Expense</button>
     </div>
-    <button class="button-primary" onclick="addExpense()">Add Expense</button>
-
-    <div id="expenses"></div>
-    <div id="totalAmount" class="total-amount">Total Amount: 0.00</div>
+    <div class="filter-sort-group">
+        <div class="filter-group">
+            <label for="minAmount">Min Amount:</label>
+            <input type="number" id="minAmount" step="0.01">
+            <label for="maxAmount">Max Amount:</label>
+            <input type="number" id="maxAmount" step="0.01">
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate">
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate">
+            <button onclick="applyFilters()">Apply Filters</button>
+        </div>
+        <div class="sort-group">
+            <button onclick="sortExpenses('amount')">Sort by Amount</button>
+            <button onclick="sortExpenses('date')">Sort by Date</button>
+        </div>
+    </div>
+    <div class="expense-list" id="expenseList"></div>
+    <div id="totalExpense"></div>
 </div>
 
 <script>
-    let expenses = [];
+    // JavaScript code (Please copy and paste the JavaScript code provided in the previous response)
+    let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+function renderExpenses(expensesData) {
+    const expensesList = document.getElementById('expenseList');
+    expensesList.innerHTML = '';
 
-    if (localStorage.getItem('expenses')) {
-        expenses = JSON.parse(localStorage.getItem('expenses'));
-        renderExpenses();
+    let totalExpense = 0;
+
+    expensesData.forEach((expense, index) => {
+        totalExpense += expense.amount;
+        const expenseDiv = document.createElement('div');
+        expenseDiv.classList.add('expense');
+        expenseDiv.innerHTML = `
+            <p>Amount: ${expense.amount}, Date: ${expense.date}, Description: ${expense.description}</p>
+            <button onclick="editExpense(${index})">Edit</button>
+            <button onclick="deleteExpense(${index})">Delete</button>
+        `;
+        expensesList.appendChild(expenseDiv);
+    });
+
+    document.getElementById('totalExpense').textContent = `Total Expense: ${totalExpense.toFixed(2)}`;
+
+    localStorage.setItem('expenses', JSON.stringify(expensesData));
+}
+
+function addExpense() {
+    const amount = parseFloat(document.getElementById('amount').value);
+    const date = document.getElementById('date').value;
+    const description = document.getElementById('description').value;
+
+    if (isNaN(amount) || amount <= 0 || !date || !description) {
+        alert('Please enter valid amount, date, and description.');
+        return;
     }
 
-    function renderExpenses() {
-        const expensesDiv = document.getElementById('expenses');
-        expensesDiv.innerHTML = '';
+    expenses.push({ amount, date, description });
+    renderExpenses(expenses);
+}
 
-        let totalAmount = 0;
+function editExpense(index) {
+    const newAmount = parseFloat(prompt('Enter new amount:'));
+    const newDate = prompt('Enter new date:');
+    const newDescription = prompt('Enter new description:');
 
-        expenses.forEach((expense, index) => {
-            const expenseDiv = document.createElement('div');
-            expenseDiv.classList.add('expense');
-            expenseDiv.innerHTML = `
-                <p>Amount: ${expense.amount}, Date: ${expense.date}, Description: ${expense.description}</p>
-                <button onclick="editExpense(${index})">Edit</button>
-                <button onclick="deleteExpense(${index})">Delete</button>
-            `;
-            expensesDiv.appendChild(expenseDiv);
-
-            totalAmount += parseFloat(expense.amount);
-        });
-
-        document.getElementById('totalAmount').textContent = 'Total Amount: ' + totalAmount.toFixed(2);
+    if (isNaN(newAmount) || newAmount <= 0 || !newDate || !newDescription) {
+        alert('Please enter valid amount, date, and description.');
+        return;
     }
 
-    function addExpense() {
-        const amount = parseFloat(document.getElementById('amount').value);
-        const date = document.getElementById('date').value;
-        const description = document.getElementById('description').value;
+    expenses[index].amount = newAmount;
+    expenses[index].date = newDate;
+    expenses[index].description = newDescription;
+    renderExpenses(expenses);
+}
 
-        if (isNaN(amount) || amount <= 0 || !date || !description) {
-            alert('Please enter valid amount, date, and description.');
-            return;
-        }
+function deleteExpense(index) {
+    expenses.splice(index, 1);
+    renderExpenses(expenses);
+}
 
-        expenses.push({ amount, date, description });
-        saveExpenses();
-        renderExpenses();
+function applyFilters() {
+    const minAmount = parseFloat(document.getElementById('minAmount').value);
+    const maxAmount = parseFloat(document.getElementById('maxAmount').value);
+    const startDate = new Date(document.getElementById('startDate').value);
+    const endDate = new Date(document.getElementById('endDate').value);
+
+    const filteredExpenses = expenses.filter(expense => {
+        const expenseDate = new Date(expense.date);
+        return (!minAmount || expense.amount >= minAmount) &&
+               (!maxAmount || expense.amount <= maxAmount) &&
+               (!isNaN(startDate.getTime()) || expenseDate >= startDate) &&
+               (!isNaN(endDate.getTime()) || expenseDate <= endDate);
+    });
+
+    renderExpenses(filteredExpenses);
+}
+
+function sortExpenses(sortBy) {
+    let sortedExpenses = [...expenses];
+    if (sortBy === 'amount') {
+        sortedExpenses.sort((a, b) => a.amount - b.amount);
+    } else if (sortBy === 'date') {
+        sortedExpenses.sort((a, b) => new Date(a.date) - new Date(b.date));
     }
 
-    function editExpense(index) {
-        const newAmount = parseFloat(prompt('Enter new amount:'));
-        const newDate = prompt('Enter new date:');
-        const newDescription = prompt('Enter new description:');
+    renderExpenses(sortedExpenses);
+}
 
-        if (isNaN(newAmount) || newAmount <= 0 || !newDate || !newDescription) {
-            alert('Please enter valid amount, date, and description.');
-            return;
-        }
+// Initialize rendering of expenses
+renderExpenses(expenses);
 
-        expenses[index].amount = newAmount;
-        expenses[index].date = newDate;
-        expenses[index].description = newDescription;
-        saveExpenses();
-        renderExpenses();
-    }
-
-    function deleteExpense(index) {
-        expenses.splice(index, 1);
-        saveExpenses();
-        renderExpenses();
-    }
-
-    function saveExpenses() {
-        localStorage.setItem('expenses', JSON.stringify(expenses));
-    }
 </script>
 </body>
 </html>
