@@ -214,7 +214,7 @@ function renderExpenses(expensesData) {
         expensesList.appendChild(expenseDiv);
     });
 
-    document.getElementById('totalExpense').textContent = `Total Expense: ${totalExpense.toFixed(2)}`;
+    document.getElementById('totalExpense').textContent = `Total Expense: ${totalExpense.toFixed(2)} Rs`;
 
     localStorage.setItem('expenses', JSON.stringify(expensesData));
 }
